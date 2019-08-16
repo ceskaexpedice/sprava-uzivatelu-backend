@@ -31,7 +31,28 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
+
+
   config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.delivery_method = :smtp
+  host = "127.0.0.1:3000"
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.register_interceptor(SendGrid::MailInterceptor)
+  ActionMailer::Base.smtp_settings = {
+    :address => 'smtp.sendgrid.net',
+    :port => '25',
+    :domain => 'kramerius.cloud',
+    :authentication => :plain,
+    :user_name => ENV['sendgrid_username'],
+    :password => ENV['sendgrid_password'],
+    :enable_starttls_auto => true
+  }
+
+
+
+
+
 
   config.action_mailer.perform_caching = false
 

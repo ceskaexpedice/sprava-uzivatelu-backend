@@ -23,3 +23,6 @@
 /config/master.key
 
 /local
+
+# Ignore application configuration
+/config/application.yml
