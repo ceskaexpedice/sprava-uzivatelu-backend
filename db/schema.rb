@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_13_140443) do
+ActiveRecord::Schema.define(version: 2019_08_20_162142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 2019_08_13_140443) do
     t.string "doctype"
     t.string "policy"
     t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "last_page_indices", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "kramerius"
+    t.string "uuid"
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kramerius", "uuid"], name: "index_last_page_indices_on_kramerius_and_uuid", unique: true
+    t.index ["user_id"], name: "index_last_page_indices_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,4 +71,5 @@ ActiveRecord::Schema.define(version: 2019_08_13_140443) do
   end
 
   add_foreign_key "favourites", "users"
+  add_foreign_key "last_page_indices", "users"
 end

@@ -10,5 +10,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :favourites, dependent: :destroy
+  has_many :last_page_indices, dependent: :destroy
 
 end

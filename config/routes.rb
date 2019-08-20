@@ -7,6 +7,7 @@ Rails.application.routes.draw do
           post 'revoke'
         end
       end
+      resources :last_page_indices, only: [:index, :create]
     end
   end
 

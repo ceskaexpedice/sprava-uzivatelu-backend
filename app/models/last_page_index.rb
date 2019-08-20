@@ -1,0 +1,2 @@
+class LastPageIndex < ApplicationRecord
+end
