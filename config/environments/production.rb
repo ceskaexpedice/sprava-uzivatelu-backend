@@ -54,6 +54,29 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "sprava-uzivatelu-backend_#{Rails.env}"
 
+
+
+
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.delivery_method = :smtp
+  host = "api.kramerius.cloud"
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.register_interceptor(SendGrid::MailInterceptor)
+  ActionMailer::Base.smtp_settings = {
+    :address => 'smtp.sendgrid.net',
+    :port => '25',
+    :domain => 'api.kramerius.cloud',
+    :authentication => :plain,
+    :user_name => ENV['sendgrid_username'],
+    :password => ENV['sendgrid_password'],
+    :enable_starttls_auto => true
+  }
+
+
+
+
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
