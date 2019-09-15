@@ -12,4 +12,12 @@ class User < ActiveRecord::Base
   has_many :favourites, dependent: :destroy
   has_many :last_page_indices, dependent: :destroy
 
+  def has_role?(role)
+    !self.roles.nil? && self.roles.split(",").include?(role)
+  end
+
+  def is_admin?
+    has_role?("admin")
+  end
+
 end
